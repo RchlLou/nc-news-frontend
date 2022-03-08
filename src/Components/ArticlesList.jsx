@@ -2,12 +2,13 @@ import { fetchArticles }  from "../api";
 import { useEffect, useState } from "react";
 
 export default function ArticlesList() {
-    const [articles, setItems] = useState([]);
+    const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(() => {
+        setIsLoading(true);
         fetchArticles().then((articles) => {
-            setItems(articles);
+            setArticles(articles);
             setIsLoading(false);
         })
     }, [])
