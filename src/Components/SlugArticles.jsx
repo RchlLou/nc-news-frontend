@@ -1,4 +1,3 @@
-import React from 'react';
 import { fetchTopicBySlug } from '../api';
 import { useState, useEffect } from 'react'
 import {useParams} from "react-router-dom";
@@ -15,7 +14,7 @@ export default function SingleTopic () {
 
   return  (
       <div>
-         {topic.map((article)=> {
+        {topic.map((article)=> {
             return (           
              <section className="article-card-style" key={article.article_id}> 
               <p>{article.id}</p> 
