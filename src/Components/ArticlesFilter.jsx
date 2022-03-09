@@ -1,23 +1,27 @@
-import { fetchArticles }  from "../api";
+import { fetchArticles, fetchTopicBySlug }  from "../api";
 import { useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
 
-export default function ArticlesList() {
+export default function ArticlesFilter() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     // console.dir(useParams());
-    const { topic_slug : topicSlug} = useParams();
-   
+    const { topic_slug : topicSlug } = useParams();
+    
   
 
-      useEffect(() => {
+      useEffect(async() => {
         setIsLoading(true);
-        fetchArticles(undefined).then((articles) => {
-            setArticles(articles);
+          if (topicSlug === undefined) {
+            const articleData = await fetchArticles()
+          } else {
+            const articleData = await fetchTopicBySlug(topicSlug)
+          }
+            setArticles(articleData);
             setIsLoading(false);
-        })
-    }, [])
+        });
+    }, [articles])
    
     return isLoading 
     ?  (
