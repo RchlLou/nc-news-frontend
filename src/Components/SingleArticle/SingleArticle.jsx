@@ -1,23 +1,21 @@
-import { fetchArticles }  from "../api";
+import { fetchArticleByID }  from "../../api";
 import { useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom"
 
 
-export default function ArticlesList() {
-    const [articles, setArticles] = useState([]);
+export default function ArticlesById() {
+    const [article, setArticle] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    // console.dir(useParams());
-    const { topic_slug : topicSlug} = useParams();
-   
+    const { id } = useParams;
   
 
-      useEffect(() => {
+    useEffect(() => {
         setIsLoading(true);
-        fetchArticles(undefined).then((articles) => {
-            setArticles(articles);
+        fetchArticleByID(id).then((articleData) => {
+            setArticle(articleData);
             setIsLoading(false);
         })
-    }, [])
+    }, [id])
    
     return isLoading 
     ?  (
@@ -26,8 +24,6 @@ export default function ArticlesList() {
 
     :   (
         <div>
-           {articles.map((article)=> {
-                 
               return (           
                <section className="article-card-style" key={article.article_id}> 
                 <p>{article.id}</p> 
@@ -38,7 +34,6 @@ export default function ArticlesList() {
                   <p>{article.votes}</p>
                 </section>
               )
-            })}
           </div>
     )
 }

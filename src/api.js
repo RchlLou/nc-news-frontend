@@ -16,10 +16,16 @@ export function fetchTopics() {
   });
 }
 
-export const fetchTopicBySlug = (topic_slug) => {
+export const fetchTopicBySlug = (topicSlug) => {
   return ncNewsApi
-    .get(`articles?topic=${topic_slug}`)
+    .get(`articles?topic=${topicSlug}`)
     .then(({ data: { articles } }) => {
       return articles;
     });
+};
+
+export const fetchArticleByID = (id) => {
+  return ncNewsApi.get(`articles/${id}`).then(({ data: { article } }) => {
+    return article;
+  });
 };

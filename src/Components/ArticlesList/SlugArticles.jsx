@@ -1,21 +1,28 @@
-import React from 'react';
-import { fetchTopicBySlug } from '../api';
+import { fetchTopicBySlug } from '../../api';
 import { useState, useEffect } from 'react'
 import {useParams} from "react-router-dom";
 
 export default function SingleTopic () {
-  const [topic, setTopic] = useState([]);
-  const { topic_slug } = useParams();
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { topic_slug : topicSlug } = useParams();
 
   useEffect(() => {
-    fetchTopicBySlug(topic_slug).then((topicData) => {
-      setTopic(topicData);
+    setIsLoading(true);
+    fetchTopicBySlug(topicSlug).then((topicData) => {
+      setArticles(topicData);
+      setIsLoading(false);
     });
-  }, [topic_slug]);
+  }, [topicSlug]);
 
-  return  (
-      <div>
-         {topic.map((article)=> {
+  return isLoading 
+  ?  (
+    <p>loading...</p>
+    )
+
+  :  (
+     <div>
+         {articles.map((article)=> {
             return (           
              <section className="article-card-style" key={article.article_id}> 
               <p>{article.id}</p> 
