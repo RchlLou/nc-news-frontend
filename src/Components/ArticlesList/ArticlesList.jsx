@@ -13,8 +13,8 @@ export default function ArticlesList() {
 
       useEffect(() => {
         setIsLoading(true);
-        fetchArticles(topic).then((articles) => {
-            setArticles(articles);
+        fetchArticles(topic).then((articleData) => {
+            setArticles(articleData);
             setIsLoading(false);
         })
     }, [topic])
@@ -24,13 +24,15 @@ export default function ArticlesList() {
         <p>loading...</p>
         )
 
+
+        
     :   (
         <div>
            {articles.map((article)=> {
               //   setArticles(event.target.value)
               // onClick={event => console.log(hello) }
               return (           
-               <section className="article-card-style" key={article.article_id} onClick={() => navigate(`articles/${article.article_id}`)}> 
+               <section className="article-card-style" key={article.article_id} onClick={() => navigate(`${article.article_id}`)}> 
                {article.article_id}
                   <p>{article.topic}</p> 
                   <p>{article.author}</p>

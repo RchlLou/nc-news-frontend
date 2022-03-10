@@ -23,3 +23,11 @@ export const fetchArticleByID = (id) => {
     return article;
   });
 };
+
+export const fetchCommentsByArticleID = (id) => {
+  return ncNewsApi
+    .get(`articles/${id}/comments`)
+    .then(({ data: { articleComments } }) => {
+      return articleComments;
+    });
+};

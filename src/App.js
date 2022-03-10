@@ -13,10 +13,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/articles" element={<ArticlesList />} />
-          <Route
-            path="/articles/articles/:article_id"
-            element={<ArticleById />}
-          />
+          <Route path="/articles/:article_id" element={<ArticleById />} />
         </Routes>
       </BrowserRouter>
     </div>

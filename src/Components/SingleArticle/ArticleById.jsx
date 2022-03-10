@@ -1,4 +1,5 @@
 import { fetchArticleByID }  from "../../api";
+import CommentsList from "./CommentsList"
 import { useEffect, useState} from "react";
 import { useParams } from "react-router-dom"
 
@@ -6,8 +7,7 @@ import { useParams } from "react-router-dom"
 export default function ArticleById() {
     const [article, setArticle] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { article_id } = useParams;
-    console.log(article_id);
+    const { article_id } = useParams();
   
 
     useEffect(() => {
@@ -24,16 +24,15 @@ export default function ArticleById() {
         )
 
     :   (
-        <div>
-              return (           
+        <div>         
                <section className="article-card-style" key={article.article_id}> 
                   <p>{article.topic}</p> 
                   <p>{article.author}</p>
                   <p>{article.title}</p>
                   <p>{article.comment_count}</p>
                   <p>{article.votes}</p>
+                    <CommentsList article_id={article_id}/>
                 </section>
-              )
           </div>
     )
 }
