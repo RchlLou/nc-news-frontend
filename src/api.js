@@ -1,4 +1,5 @@
 import axios from "axios";
+import HandleCustomErrors from "./Components/HandleCustomErrors";
 
 const ncNewsApi = axios.create({
   baseURL: "https://nc-news-app-feb2022.herokuapp.com/api/",
@@ -24,7 +25,7 @@ export const fetchArticleByID = (id) => {
   });
 };
 
-export const fetchCommentsByArticleID = (id) => {
+export const fetchComments = (id) => {
   return ncNewsApi
     .get(`articles/${id}/comments`)
     .then(({ data: { articleComments } }) => {
@@ -33,15 +34,17 @@ export const fetchCommentsByArticleID = (id) => {
 };
 
 export const postComment = (username, article_id, body) => {
-  console.log(username);
-  console.log(article_id);
-  console.log(body);
-  return ncNewsApi
-    .post(`articles/${article_id}/comments`, { username: username, body: body })
-    .then((response) => {
-      console.log(response.body);
-    })
-    .catch((error) => {
-      console.log(error.body);
-    });
+  return ncNewsApi.post(`articles/${article_id}/comments`, {
+    username: username,
+    body: body,
+  });
+  // .then((response) => {
+  //   console.log(response);
+  // });
+  // .catch(function ({ response }) {
+  //   if (response) {
+  //     return <HandleCustomErrors />;
+  //     setError(response.data.msg);
+  //   }
+  // });
 };

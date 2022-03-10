@@ -1,4 +1,4 @@
-import { fetchCommentsByArticleID } from "../../api"
+import { fetchComments } from "../../api"
 import { useEffect, useState } from "react";
 
 export default function CommentsList({ article_id }) {
@@ -6,7 +6,7 @@ const [comments, setComments] = useState([]);
 
     useEffect(() => {
         // setIsLoading(true);
-        fetchCommentsByArticleID(article_id).then((commentsData) => {
+        fetchComments(article_id).then((commentsData) => {
             setComments(commentsData);
         })
     }, [])
@@ -22,6 +22,7 @@ return    (
               <p>{comment.title}</p>
               <p>{comment.comment_count}</p>
               <p>{comment.votes}</p>
+              <p>{comment.body}</p> 
             </section>
           )
         })}

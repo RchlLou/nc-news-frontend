@@ -2,7 +2,7 @@ import { fetchArticleByID }  from "../../api";
 import CommentsList from "./CommentsList"
 import CommentForm from "./CommentForm";
 import { useEffect, useState} from "react";
-import { useParams } from "react-router-dom"
+import { useParams} from "react-router-dom";
 
 
 export default function ArticleById() {
