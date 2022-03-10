@@ -1,5 +1,5 @@
 import { fetchCommentsByArticleID } from "../../api"
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export default function CommentsList({ article_id }) {
 const [comments, setComments] = useState([]);

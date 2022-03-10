@@ -31,3 +31,17 @@ export const fetchCommentsByArticleID = (id) => {
       return articleComments;
     });
 };
+
+export const postComment = (username, article_id, body) => {
+  console.log(username);
+  console.log(article_id);
+  console.log(body);
+  return ncNewsApi
+    .post(`articles/${article_id}/comments`, { username: username, body: body })
+    .then((response) => {
+      console.log(response.body);
+    })
+    .catch((error) => {
+      console.log(error.body);
+    });
+};

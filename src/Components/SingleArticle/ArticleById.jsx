@@ -1,5 +1,6 @@
 import { fetchArticleByID }  from "../../api";
 import CommentsList from "./CommentsList"
+import CommentForm from "./CommentForm";
 import { useEffect, useState} from "react";
 import { useParams } from "react-router-dom"
 
@@ -17,6 +18,7 @@ export default function ArticleById() {
             setIsLoading(false);
         })
     }, [article_id])
+
    
     return isLoading 
     ?  (
@@ -31,8 +33,9 @@ export default function ArticleById() {
                   <p>{article.title}</p>
                   <p>{article.comment_count}</p>
                   <p>{article.votes}</p>
-                    <CommentsList article_id={article_id}/>
                 </section>
+                <CommentForm/>
+                    <CommentsList article_id={article_id}/>
           </div>
     )
 }
