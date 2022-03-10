@@ -6,19 +6,11 @@ const ncNewsApi = axios.create({
 
 export function fetchArticles(topic) {
   return ncNewsApi
-    .get("articles", { params: { topic: "football" } })
+    .get("articles", { params: { topic } })
     .then(({ data: { articles } }) => {
       return articles;
     });
 }
-//
-// export const fetchTopicBySlug = (topicSlug) => {
-//   return ncNewsApi
-//     .get(`articles?topic=${topicSlug}`)
-//     .then(({ data: { articles } }) => {
-//       return articles;
-//     });
-// };
 
 export function fetchTopics() {
   return ncNewsApi.get("topics").then(({ data: { topics } }) => {

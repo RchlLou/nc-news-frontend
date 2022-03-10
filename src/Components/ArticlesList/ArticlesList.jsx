@@ -1,13 +1,13 @@
 import { fetchArticles }  from "../../api";
 import { useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 
 export default function ArticlesList() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { topic } = useParams();
-    console.log(topic + "topic")
+    const [ query ] = useSearchParams();
+    const topic = query.get("topic")
 
       useEffect(() => {
         setIsLoading(true);
