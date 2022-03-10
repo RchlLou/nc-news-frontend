@@ -1,6 +1,6 @@
 import { fetchArticles }  from "../../api";
 import { useEffect, useState} from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 
 export default function ArticlesList() {
@@ -8,6 +8,8 @@ export default function ArticlesList() {
     const [isLoading, setIsLoading] = useState(true);
     const [ query ] = useSearchParams();
     const topic = query.get("topic")
+    const navigate = useNavigate();
+    
 
       useEffect(() => {
         setIsLoading(true);
@@ -28,8 +30,8 @@ export default function ArticlesList() {
               //   setArticles(event.target.value)
               // onClick={event => console.log(hello) }
               return (           
-               <section className="article-card-style" key={article.article_id} > 
-                <p>{article.id}</p> 
+               <section className="article-card-style" key={article.article_id} onClick={() => navigate(`articles/${article.article_id}`)}> 
+               {article.article_id}
                   <p>{article.topic}</p> 
                   <p>{article.author}</p>
                   <p>{article.title}</p>
