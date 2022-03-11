@@ -13,10 +13,19 @@
 }
 
 .nav-topic-links {
-  background: crimson;
+  background: rgb(170, 70, 228);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.comment-card-style {
+  text-align: center;
+  border: 1px;
+  border-style: ridge;
+  border-radius: 10px;
+  margin: 2%;
+  padding: 10px 35px 20px 35px;
 }
 
 /* .card-img {

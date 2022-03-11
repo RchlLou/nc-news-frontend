@@ -4,10 +4,12 @@ const ncNewsApi = axios.create({
   baseURL: "https://nc-news-app-feb2022.herokuapp.com/api/",
 });
 
-export function fetchArticles() {
-  return ncNewsApi.get("articles").then(({ data: { articles } }) => {
-    return articles;
-  });
+export function fetchArticles(topic) {
+  return ncNewsApi
+    .get("articles", { params: { topic } })
+    .then(({ data: { articles } }) => {
+      return articles;
+    });
 }
 
 export function fetchTopics() {
@@ -16,10 +18,34 @@ export function fetchTopics() {
   });
 }
 
-export const fetchTopicBySlug = (topic_slug) => {
+export const fetchArticleByID = (id) => {
+  return ncNewsApi.get(`articles/${id}`).then(({ data: { article } }) => {
+    return article;
+  });
+};
+
+export const fetchComments = (id) => {
   return ncNewsApi
-    .get(`articles?topic=${topic_slug}`)
-    .then(({ data: { articles } }) => {
-      return articles;
+    .get(`articles/${id}/comments`)
+    .then(({ data: { articleComments } }) => {
+      return articleComments;
+    });
+};
+
+export const postComment = (username, article_id, body) => {
+  return ncNewsApi
+    .post(`articles/${article_id}/comments`, { username: username, body: body })
+    .catch(function ({
+      response: {
+        data: { msg },
+        status,
+      },
+    }) {
+      if (msg) {
+        console.log({ msg, status });
+        alert(
+          `Status ${status}: Comment not posted because ${msg}. Please try again.`
+        );
+      }
     });
 };
