@@ -10,6 +10,7 @@ export default function ArticleById() {
     const [isLoading, setIsLoading] = useState(true);
     const { article_id } = useParams();
   
+    // const newDate = `${article.created_at.getDate()}-${article.created_at.getMonth()}-${article.created_at.getFullYear()}`
 
     useEffect(() => {
         setIsLoading(true);
@@ -18,6 +19,7 @@ export default function ArticleById() {
             setIsLoading(false);
         })
     }, [article_id])
+
 
    
     return isLoading 
@@ -33,9 +35,11 @@ export default function ArticleById() {
                   <p>{article.title}</p>
                   <p>{article.comment_count}</p>
                   <p>{article.votes}</p>
+                  <p>{article.created_at}</p>
+                  <p>{article.body}</p>
                 </section>
                 <CommentForm/>
-                    <CommentsList article_id={article_id}/>
+                <CommentsList article_id={article_id}/>
           </div>
     )
 }

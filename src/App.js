@@ -9,7 +9,7 @@ import ArticleById from "./Components/SingleArticle/ArticleById";
 import PageNotFound from "./Components/PageNotFound";
 
 function App() {
-  const [user, setUser] = useState({ user_id: 1, username: "tickle12" });
+  const [user, setUser] = useState({ user_id: 1, username: "tickle122" });
 
   return (
     <div className="App">
