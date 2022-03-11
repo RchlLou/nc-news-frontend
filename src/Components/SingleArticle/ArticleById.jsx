@@ -39,7 +39,7 @@ export default function ArticleById() {
                   {CreatedAt(article.created_at)}
                   <p>{article.body}</p>
                 </section>
-                <CommentForm/>
+                
                 <CommentsList article_id={article_id}/>
           </div>
     )

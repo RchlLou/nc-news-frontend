@@ -11,7 +11,7 @@ export default function ArticlesList() {
     const topic = query.get("topic")
     const navigate = useNavigate();
     
-
+console.log(topic)
       useEffect(() => {
         setIsLoading(true);
         fetchArticles(topic).then((articleData) => {
@@ -30,16 +30,21 @@ export default function ArticlesList() {
     :   (
         <div>
            {articles.map((article)=> {
-              //   setArticles(event.target.value)
-              // onClick={event => console.log(hello) }
+        
               return (           
                <section className="article-card-style" key={article.article_id} onClick={() => navigate(`${article.article_id}`)}> 
                {article.article_id}
                   <p>{article.topic}</p> 
                   <p>{article.author}</p>
                   <p>{article.title}</p>
-                  {CreatedAt(article.comment_count)}
-                  <p>{article.votes}</p>
+                  <p>{article.comment_count}</p>
+                  <CreatedAt date={article.created_at}/>
+                  
+                    <button onClick={() => {}}>♥</button>
+                    {article.votes}
+                    
+                    
+
                 </section>
               )
             })}

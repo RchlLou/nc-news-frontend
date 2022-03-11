@@ -1,4 +1,4 @@
-export default function CreatedAt(date) {
+export default function CreatedAt({date}) {
   const formattedDate = new Date(Date.parse(date));
 
   return (
