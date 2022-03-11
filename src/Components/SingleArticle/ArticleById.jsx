@@ -1,6 +1,5 @@
 import { fetchArticleByID }  from "../../api";
-import CommentsList from "./CommentsList"
-import CommentForm from "./CommentForm";
+import CommentsList from "./CommentsList";
 import { useEffect, useState} from "react";
 import { useParams} from "react-router-dom";
 import CreatedAt from "../Utils/CreatedAt";
@@ -11,7 +10,6 @@ export default function ArticleById() {
     const [isLoading, setIsLoading] = useState(true);
     const { article_id } = useParams();
   
-    // const newDate = `${article.created_at.getDate()}-${article.created_at.getMonth()}-${article.created_at.getFullYear()}`
 
     useEffect(() => {
         setIsLoading(true);
@@ -39,7 +37,7 @@ export default function ArticleById() {
                   {CreatedAt(article.created_at)}
                   <p>{article.body}</p>
                 </section>
-                <CommentForm/>
+                
                 <CommentsList article_id={article_id}/>
           </div>
     )
