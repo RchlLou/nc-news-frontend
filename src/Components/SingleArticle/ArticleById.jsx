@@ -3,6 +3,7 @@ import CommentsList from "./CommentsList"
 import CommentForm from "./CommentForm";
 import { useEffect, useState} from "react";
 import { useParams} from "react-router-dom";
+import CreatedAt from "../Utils/CreatedAt";
 
 
 export default function ArticleById() {
@@ -35,7 +36,7 @@ export default function ArticleById() {
                   <p>{article.title}</p>
                   <p>{article.comment_count}</p>
                   <p>{article.votes}</p>
-                  <p>{article.created_at}</p>
+                  {CreatedAt(article.created_at)}
                   <p>{article.body}</p>
                 </section>
                 <CommentForm/>

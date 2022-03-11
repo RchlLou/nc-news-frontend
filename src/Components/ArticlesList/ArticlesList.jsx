@@ -1,6 +1,7 @@
 import { fetchArticles }  from "../../api";
 import { useEffect, useState} from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import CreatedAt from "../Utils/CreatedAt";
 
 
 export default function ArticlesList() {
@@ -37,7 +38,7 @@ export default function ArticlesList() {
                   <p>{article.topic}</p> 
                   <p>{article.author}</p>
                   <p>{article.title}</p>
-                  <p>{article.comment_count}</p>
+                  {CreatedAt(article.comment_count)}
                   <p>{article.votes}</p>
                 </section>
               )

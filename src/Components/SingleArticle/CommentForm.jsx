@@ -14,6 +14,7 @@ const { user } = useContext(UserContext);
     const onSubmit = (event) => {
         event.preventDefault()
         postComment(user.username, article_id, input)
+        window.location.reload();
     }
 
     const onChange = (event) => {

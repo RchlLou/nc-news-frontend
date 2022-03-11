@@ -19,6 +19,15 @@
   align-items: center;
 }
 
+.comment-card-style {
+  text-align: center;
+  border: 1px;
+  border-style: ridge;
+  border-radius: 10px;
+  margin: 2%;
+  padding: 10px 35px 20px 35px;
+}
+
 /* .card-img {
   width: 200px;
   object-fit: cover;
