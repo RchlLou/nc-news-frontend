@@ -1,9 +1,9 @@
 import { fetchArticleByID }  from "../../api";
 import CommentsList from "./CommentsList"
-import CommentForm from "./CommentForm";
-import { useEffect, useState} from "react";
-import { useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CreatedAt from "../Utils/CreatedAt";
+import Voter from "../../Voter";
 
 
 export default function ArticleById() {
@@ -11,7 +11,6 @@ export default function ArticleById() {
     const [isLoading, setIsLoading] = useState(true);
     const { article_id } = useParams();
   
-    // const newDate = `${article.created_at.getDate()}-${article.created_at.getMonth()}-${article.created_at.getFullYear()}`
 
     useEffect(() => {
         setIsLoading(true);
@@ -22,7 +21,6 @@ export default function ArticleById() {
     }, [article_id])
 
 
-   
     return isLoading 
     ?  (
         <p>loading...</p>
@@ -36,7 +34,8 @@ export default function ArticleById() {
                   <p>{article.title}</p>
                   <p>{article.comment_count}</p>
                   <p>{article.votes}</p>
-                  {CreatedAt(article.created_at)}
+                  <Voter numVotes={article.votes}/>
+                  <CreatedAt date={article.created_at} />
                   <p>{article.body}</p>
                 </section>
                 

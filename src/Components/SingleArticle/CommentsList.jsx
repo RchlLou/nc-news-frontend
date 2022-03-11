@@ -4,6 +4,7 @@ import CreatedAt from "../Utils/CreatedAt";
 import CommentForm from "./CommentForm";
 
 export default function CommentsList({ article_id }) {
+
 const [comments, setComments] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
 
@@ -16,7 +17,7 @@ const [isLoading, setIsLoading] = useState(true);
         })
     }, [article_id])
 
-  
+    
 return  isLoading 
   ?   (
     <p>loading...</p>
@@ -29,7 +30,7 @@ return  isLoading
              <section className="comment-card-style" key={comment.comment_id}> 
               <p>{comment.topic}</p> 
               <p>{comment.author}</p>
-              {CreatedAt(comment.created_at)}
+              <CreatedAt date={comment.created_at} />
               <p>{comment.votes}</p>
               <p>COMMENT:<br/>
                 {comment.body}</p> 

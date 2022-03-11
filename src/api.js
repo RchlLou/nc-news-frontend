@@ -49,3 +49,24 @@ export const postComment = (username, article_id, body) => {
       }
     });
 };
+
+export const patchArticleVotes = (id, voteNum) => {
+  return ncNewsApi
+    .patch(`articles/${id}`, { inc_votes: `${voteNum}` })
+    .then((result) => {
+      return result.data.updatedArticle;
+    })
+    .catch(function ({
+      response: {
+        data: { msg },
+        status,
+      },
+    }) {
+      if (msg) {
+        console.log({ msg, status });
+        alert(
+          `Status ${status}: Vote not updated because ${msg}. Please try again.`
+        );
+      }
+    });
+};

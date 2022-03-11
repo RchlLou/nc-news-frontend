@@ -12,9 +12,9 @@ function App() {
   const [user, setUser] = useState({ user_id: 1, username: "tickle122" });
 
   return (
-    <div className="App">
+    <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
-        <BrowserRouter>
+        <div className="App">
           <Title />
           <NavBar />
           <Routes>
@@ -22,9 +22,9 @@ function App() {
             <Route path="/articles/:article_id" element={<ArticleById />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-        </BrowserRouter>
+        </div>
       </UserContext.Provider>
-    </div>
+    </BrowserRouter>
   );
 }
 
