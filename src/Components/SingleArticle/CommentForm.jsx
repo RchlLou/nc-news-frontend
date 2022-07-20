@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { postComment } from "../../api";
 import { UserContext } from "../../UserContext";
 
-export default function CommentForm() {
+export default function CommentForm({setComments}) {
 const [input, setInput] = useState("");
 
 const { article_id } = useParams();
@@ -13,8 +13,13 @@ const { user } = useContext(UserContext);
 
     const onSubmit = (event) => {
         event.preventDefault()
-        postComment(user.username, article_id, input)
-        window.location.reload();
+        postComment(user.username, article_id, input).then((result) => {
+           setComments((currentComment) => {
+               const commentArr = [...currentComment, result.data.postedComment]
+               return commentArr;
+           });
+           setInput("");
+        })
     }
 
     const onChange = (event) => {
