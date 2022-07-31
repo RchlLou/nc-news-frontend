@@ -18,6 +18,7 @@ function App() {
           <Title />
           <NavBar />
           <Routes>
+            <Route path="/" element={<ArticlesList />} />
             <Route path="/articles" element={<ArticlesList />} />
             <Route path="/articles/:article_id" element={<ArticleById />} />
             <Route path="*" element={<PageNotFound />} />
