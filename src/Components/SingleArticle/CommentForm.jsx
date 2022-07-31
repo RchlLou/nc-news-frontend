@@ -3,33 +3,32 @@ import { useParams } from "react-router-dom";
 import { postComment } from "../../api";
 import { UserContext } from "../../UserContext";
 
-export default function CommentForm({setComments}) {
-const [input, setInput] = useState("");
+export default function CommentForm({ setComments }) {
+  const [input, setInput] = useState("");
 
-const { article_id } = useParams();
+  const { article_id } = useParams();
 
-const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    postComment(user.username, article_id, input).then((result) => {
+      setComments((currentCommentsArr) => {
+        const commentsArr = [result.data.postedComment, ...currentCommentsArr];
+        return commentsArr;
+      });
+      setInput("");
+    });
+  };
 
-    const onSubmit = (event) => {
-        event.preventDefault()
-        postComment(user.username, article_id, input).then((result) => {
-           setComments((currentComment) => {
-               const commentArr = [...currentComment, result.data.postedComment]
-               return commentArr;
-           });
-           setInput("");
-        })
-    }
+  const onChange = (event) => {
+    setInput(event.target.value);
+  };
 
-    const onChange = (event) => {
-      setInput(event.target.value)
-    }
-
-return (
+  return (
     <form onSubmit={onSubmit}>
-        <input onChange={onChange} value={input}/>
-        <button>Post</button>
+      <input onChange={onChange} value={input} />
+      <button>Post</button>
     </form>
-    )
+  );
 }

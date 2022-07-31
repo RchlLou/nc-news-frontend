@@ -8,12 +8,11 @@ export default function CommentsList({ article_id }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     fetchComments(article_id).then((commentsData) => {
       setComments(commentsData);
       setIsLoading(false);
     });
-  }, [article_id]);
+  }, []);
 
   return isLoading ? (
     <p>loading...</p>
