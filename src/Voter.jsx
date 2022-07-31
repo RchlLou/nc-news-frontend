@@ -1,33 +1,56 @@
-// import { patchArticleVotes } from "./api";
-// import { useState, useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { UserContext } from "./UserContext"
+import { patchArticleVotes } from "./api";
+import { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
-// export default function Voter({ numVotes }) {
-//     const { user } = useContext(UserContext);
-//     const [votes, setVotes] = useState(0);
-//     const { article_id } = useParams();
+export default function Voter({ numVotes }) {
+  const [votes, setVotes] = useState(0);
+  const { article_id } = useParams();
 
-//   async function patchVotes (articleId, countNum) {
-//       // let count = 0;
-//       //   count++
-//       //   if (count)
+  const [userVote, setUserVote] = useState(0);
 
-//     patchArticleVotes(article_id, voteCrement).then((res) => { console.log(res)});
-//     setVotes((currentVote) => { return currentVote + 1})
+  function onClick(vote) {
+    // Check if incoming vote is legal, ie not voted twice in a row
+    // If legal, adjust userVote accordingly
+    //  Enable or disable <3 / -<3
 
-//   }
+    if (vote === userVote) {
+      console.log("illegal");
+      return;
+    }
+    setVotes((currentVotes) => {
+      return currentVotes + vote;
+    });
 
-//     return (
-//         <section>
-//               <p>VOTES: {numVotes + votes}</p>
-//             <button onClick={() => { patchVotes(article_id, 1) }}> ♥ </button>
-//         </section>
-//     )
-// }
+    setUserVote((currentUserVote) => {
+      return currentUserVote + vote;
+    });
+  }
 
-// function voteCrement() {
-//   let count = 0;
-//   count += 1;
-//   setVote(1);
-// }
+  function patchVotes(articleId, countNum) {
+    setVotes((currentVote) => {
+      return currentVote + countNum;
+    });
+    patchArticleVotes(article_id, countNum);
+  }
+
+  return (
+    <section>
+      <p>VOTES: {numVotes + votes}</p>
+      <button
+        onClick={() => {
+          onClick(1);
+        }}
+      >
+        ♥
+      </button>
+      <button
+        onClick={() => {
+          onClick(-1);
+        }}
+      >
+        -♥
+      </button>
+    </section>
+  );
+}

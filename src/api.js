@@ -42,7 +42,6 @@ export const postComment = (username, article_id, body) => {
       },
     }) {
       if (msg) {
-        console.log({ msg, status });
         alert(
           `Status ${status}: Comment not posted because ${msg}. Please try again.`
         );
@@ -63,7 +62,6 @@ export const patchArticleVotes = (id, voteNum) => {
       },
     }) {
       if (msg) {
-        console.log({ msg, status });
         alert(
           `Status ${status}: Vote not updated because ${msg}. Please try again.`
         );
