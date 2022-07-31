@@ -1,43 +1,29 @@
 import { patchArticleVotes } from "./api";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "./UserContext";
 
 export default function Voter({ numVotes }) {
-  const [votes, setVotes] = useState(0);
   const { article_id } = useParams();
-
   const [userVote, setUserVote] = useState(0);
+  const [upVoteButtonDisabled, setUpVoteButtonDisabled] = useState(false);
+  const [downVoteButtonDisabled, setDownVoteButtonDisabled] = useState(false);
 
   function onClick(vote) {
-    // Check if incoming vote is legal, ie not voted twice in a row
-    // If legal, adjust userVote accordingly
-    //  Enable or disable <3 / -<3
-
-    if (vote === userVote) {
-      console.log("illegal");
-      return;
-    }
-    setVotes((currentVotes) => {
-      return currentVotes + vote;
-    });
-
     setUserVote((currentUserVote) => {
       return currentUserVote + vote;
     });
-  }
 
-  function patchVotes(articleId, countNum) {
-    setVotes((currentVote) => {
-      return currentVote + countNum;
-    });
-    patchArticleVotes(article_id, countNum);
+    setUpVoteButtonDisabled(userVote + vote === 1);
+    setDownVoteButtonDisabled(userVote + vote === -1);
+
+    patchArticleVotes(article_id, vote);
   }
 
   return (
     <section>
-      <p>VOTES: {numVotes + votes}</p>
+      <p>VOTES: {numVotes + userVote}</p>
       <button
+        disabled={upVoteButtonDisabled}
         onClick={() => {
           onClick(1);
         }}
@@ -45,6 +31,7 @@ export default function Voter({ numVotes }) {
         ♥
       </button>
       <button
+        disabled={downVoteButtonDisabled}
         onClick={() => {
           onClick(-1);
         }}
