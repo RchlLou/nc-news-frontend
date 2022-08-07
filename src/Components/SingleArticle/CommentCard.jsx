@@ -7,14 +7,12 @@ export default function CommentCard({
 }) {
   function onClick() {
     // optimistically remove the comment from comment list
-    for (let i = 0; i < articleComments.length; i++) {
-      if (articleComments[i].comment_id === comment.comment_id) {
-        setArticleComments((currentArticleComments) => {
-          return currentArticleComments.splice(i, 1);
-        });
-      }
-    }
-
+    setArticleComments((currentArticleComments) => {
+      // insert logic here!!
+      return currentArticleComments.filter(
+        (currentComment) => currentComment.comment_id !== comment.comment_id
+      );
+    });
     // call the api to delete the comment
   }
 
