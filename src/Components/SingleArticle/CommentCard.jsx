@@ -1,11 +1,15 @@
 import CreatedAt from "../Utils/CreatedAt";
 import { deleteComment } from "../../api";
+import { useContext } from "react";
+import { UserContext } from "../../UserContext";
 
 export default function CommentCard({
   comment,
   articleComments,
   setArticleComments,
 }) {
+  const { user } = useContext(UserContext);
+
   function onClick() {
     // optimistically remove the comment from comment list
     setArticleComments((currentArticleComments) => {
@@ -28,7 +32,9 @@ export default function CommentCard({
         <br />
         {comment.body}
       </p>
-      <button onClick={onClick}>Delete</button>
+      {comment.author === user.username ? (
+        <button onClick={onClick}>Delete</button>
+      ) : null}
     </section>
   );
 }
