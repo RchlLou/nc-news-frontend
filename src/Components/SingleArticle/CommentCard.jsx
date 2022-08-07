@@ -1,4 +1,5 @@
 import CreatedAt from "../Utils/CreatedAt";
+import { deleteComment } from "../../api";
 
 export default function CommentCard({
   comment,
@@ -8,12 +9,12 @@ export default function CommentCard({
   function onClick() {
     // optimistically remove the comment from comment list
     setArticleComments((currentArticleComments) => {
-      // insert logic here!!
       return currentArticleComments.filter(
         (currentComment) => currentComment.comment_id !== comment.comment_id
       );
     });
     // call the api to delete the comment
+    deleteComment(comment.comment_id);
   }
 
   return (

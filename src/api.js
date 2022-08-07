@@ -68,3 +68,20 @@ export const patchArticleVotes = (id, voteNum) => {
       }
     });
 };
+
+export const deleteComment = (id) => {
+  return ncNewsApi
+    .delete(`comments/${id}`, { comment_id: id })
+    .catch(function ({
+      response: {
+        data: { msg },
+        status,
+      },
+    }) {
+      if (msg) {
+        alert(
+          `Status ${status}: Comment not deleted because ${msg}. Please try again.`
+        );
+      }
+    });
+};
