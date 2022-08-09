@@ -1,42 +1,60 @@
-import { fetchArticles }  from "../../api";
+import { fetchArticles } from "../../api";
 import CreatedAt from "../Utils/CreatedAt";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
-
 export default function ArticlesList() {
-    const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [ query ] = useSearchParams();
-    const topic = query.get("topic")
-    const navigate = useNavigate();
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("created_at");
+  const [query] = useSearchParams();
+  const topic = query.get("topic");
+  const navigate = useNavigate();
 
-      useEffect(() => {
-        setIsLoading(true);
-        fetchArticles(topic).then((articleData) => {
-            setArticles(articleData);
-            setIsLoading(false);
-        })
-    }, [topic])
-   
-    return isLoading 
-    ?  (
-        <p>loading...</p>
-        )
-    :   (
-        <div>
-           {articles.map((article)=> {
-              return (           
-               <section className="article-card-style" key={article.article_id} onClick={() => navigate(`${article.article_id}`)}> 
-               {article.article_id}
-                  <p>{article.topic}</p> 
-                  <p>{article.author}</p>
-                  <p>{article.title}</p>
-                  <CreatedAt date={article.created_at} />
-                  <p>{article.votes}</p>
-                </section>
-              )
-            })}
-          </div>
-    )
+  // consult the backend and see what request it expects for ascending and descending order
+  // create a state to represent how the articles are currently sorted
+  // have button on front end flip that state between asc and desc
+  // useEffect hook or function to use state and envoke the request
+
+  function getArticlesList() {
+    console.log("fetching articles");
+    setIsLoading(true);
+    fetchArticles(topic, sortBy).then((articleData) => {
+      setArticles(articleData);
+      setIsLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    getArticlesList();
+  }, [topic, sortBy]);
+
+  function onClick() {
+    setSortBy("created_at");
+    getArticlesList();
+  }
+
+  return isLoading ? (
+    <p>loading...</p>
+  ) : (
+    <div>
+      <button onClick={onClick}>sort by date</button>
+      {articles.map((article) => {
+        return (
+          <section
+            className="article-card-style"
+            key={article.article_id}
+            onClick={() => navigate(`${article.article_id}`)}
+          >
+            {article.article_id}
+            <p>{article.topic}</p>
+            <p>{article.author}</p>
+            <p>{article.title}</p>
+            <CreatedAt date={article.created_at} />
+            <p>{article.votes}</p>
+          </section>
+        );
+      })}
+    </div>
+  );
 }
