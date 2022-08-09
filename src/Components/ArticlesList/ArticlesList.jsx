@@ -7,6 +7,7 @@ export default function ArticlesList() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState("created_at");
+  const [order, setOrder] = useState("desc");
   const [query] = useSearchParams();
   const topic = query.get("topic");
   const navigate = useNavigate();
@@ -16,29 +17,49 @@ export default function ArticlesList() {
   // have button on front end flip that state between asc and desc
   // useEffect hook or function to use state and envoke the request
 
-  function getArticlesList() {
-    console.log("fetching articles");
+  useEffect(() => {
     setIsLoading(true);
-    fetchArticles(topic, sortBy).then((articleData) => {
+    fetchArticles(topic, sortBy, order).then((articleData) => {
       setArticles(articleData);
       setIsLoading(false);
     });
+  }, [topic, sortBy, order]);
+
+  function onClick(sortByParam) {
+    // If sortBy state already equals sortBy parameter
+    // Then switch order state
+    // Else sort desc
+
+    if (sortBy === sortByParam) {
+      setOrder((currentOrder) => {
+        return currentOrder === "desc" ? "asc" : "desc";
+      });
+    } else {
+      setSortBy(sortByParam);
+      setOrder("desc");
+    }
   }
 
-  useEffect(() => {
-    getArticlesList();
-  }, [topic, sortBy]);
-
-  function onClick() {
-    setSortBy("created_at");
-    getArticlesList();
-  }
-
+  // ⇧    ⇩
   return isLoading ? (
     <p>loading...</p>
   ) : (
     <div>
-      <button onClick={onClick}>sort by date</button>
+      <button
+        onClick={() => {
+          onClick("created_at");
+        }}
+      >
+        sort by date
+      </button>
+      <button
+        onClick={() => {
+          onClick("votes");
+        }}
+      >
+        sort by vote
+      </button>
+
       {articles.map((article) => {
         return (
           <section
